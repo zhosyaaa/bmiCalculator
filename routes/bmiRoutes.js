@@ -15,6 +15,10 @@ function saveDataToFile(data) {
   console.log('Data saved to file successfully.');
 }
 
+router.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../views/index.html'));
+});
+
 router.get('/bmicalculator', (req, res) => {
   res.sendFile(path.join(__dirname, '../views/bmiCalculator.html'));
 });

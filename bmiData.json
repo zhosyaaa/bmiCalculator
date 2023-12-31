@@ -9,5 +9,16 @@
     "bmi": "69.20",
     "category": "Obese",
     "timestamp": "31.12.2023, 10:49:17"
+  },
+  {
+    "name": "z",
+    "age": 55,
+    "gender": "female",
+    "unit": "metric",
+    "height": 238,
+    "weight": 70,
+    "bmi": "12.36",
+    "category": "Underweight",
+    "timestamp": "31.12.2023, 17:41:01"
   }
 ]
