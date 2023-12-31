@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f2f2f2;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #d2daff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .result-container {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        button[type="submit"] {
+            background-color: #333;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #aaa;
+            background-color: transparent;
+            transition: border-bottom-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="header">
+        <div class="header-main bg-light-pink">
+            <div class="container">
+                <div class="col-md-auto">
+                    <nav class="navbar navbar-expand-lg navbar-light w-100" id="header-navbar">
+                        <a class="navbar-brand font-weight-bold" href="/">BMI Calculator</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item"><a class="nav-link text-uppercase" data-toggle="none"
+                                        href="/bmicalculator">Calculate</a></li>
+                                <li class="nav-item"><a class="nav-link text-uppercase" data-toggle="none"
+                                        href="/history">History</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container mt-4" id="historyData"></div>
+    <footer class="footer">
+        <div class="container">
+            <p>Zhansaya Musabekova | SE-2206</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        axios.get('/getHistory')
+            .then(function (response) {
+                console.log(response.data);
+                displayHistoryData(response.data);
+            })
+            .catch(function (error) {
+                console.error("Error fetching data:", error);
+                document.getElementById('historyData').innerHTML = '<p>Error fetching data</p>';
+            });
+
+        function displayHistoryData(data) {
+            const historyContainer = document.getElementById('historyData');
+
+            if (data.length === 0) {
+                historyContainer.innerHTML = '<p>No history available</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.className = 'table table-striped';
+
+            const tableHeader = table.createTHead();
+            const headerRow = tableHeader.insertRow();
+            ['Name', 'Age', 'Gender', 'Height', 'Weight', 'BMI', 'Category', 'Date & Time'].forEach(headerText => {
+                const th = document.createElement('th');
+                th.appendChild(document.createTextNode(headerText));
+                headerRow.appendChild(th);
+            });
+
+            const tableBody = table.createTBody();
+            data.forEach(entry => {
+                const row = tableBody.insertRow();
+                Object.values(entry).forEach(value => {
+                    const cell = row.insertCell();
+                    cell.appendChild(document.createTextNode(value));
+                });
+            });
+
+            historyContainer.appendChild(table);
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
