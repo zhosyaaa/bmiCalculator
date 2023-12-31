@@ -1,0 +1,13 @@
+[
+  {
+    "name": "z",
+    "age": 56,
+    "gender": "female",
+    "unit": "metric",
+    "height": 136,
+    "weight": 128,
+    "bmi": "69.20",
+    "category": "Obese",
+    "timestamp": "31.12.2023, 10:49:17"
+  }
+]

@@ -122,7 +122,7 @@
 
             const tableHeader = table.createTHead();
             const headerRow = tableHeader.insertRow();
-            ['Name', 'Age', 'Gender', 'Height', 'Weight', 'BMI', 'Category', 'Date & Time'].forEach(headerText => {
+            ['Name', 'Age', 'Gender', "Unit", 'Height', 'Weight', 'BMI', 'Category', 'Date & Time'].forEach(headerText => {
                 const th = document.createElement('th');
                 th.appendChild(document.createTextNode(headerText));
                 headerRow.appendChild(th);
